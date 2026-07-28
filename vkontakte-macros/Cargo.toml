@@ -1,0 +1,15 @@
+[package]
+name = "vkontakte-macros"
+version = "0.1.0"
+edition = "2021"
+description = "Proc macros for vkontakte handlers and FSM"
+license = "GPL-3.0"
+repository = "https://github.com/KotEngine/vk-rs"
+
+[lib]
+proc-macro = true
+
+[dependencies]
+syn = { version = "2", features = ["full"] }
+quote = "1"
+proc-macro2 = "1"

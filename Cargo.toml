@@ -1,0 +1,53 @@
+[package]
+name = "vkontakte"
+version = "0.1.0"
+edition = "2021"
+description = "Async VK Bot API framework for Rust."
+license = "GPL-3.0"
+repository = "https://github.com/KotEngine/vk-rs"
+readme = "README.md"
+
+[workspace]
+members = [".", "vkontakte-macros"]
+resolver = "2"
+
+[dependencies]
+tokio = { version = "1", features = ["full"] }
+reqwest = { version = "0.12", features = ["json", "multipart"] }
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+async-trait = "0.1"
+thiserror = "1"
+dashmap = "6"
+async-stream = "0.3"
+futures = "0.3"
+tracing = "0.1"
+tracing-subscriber = { version = "0.3", features = ["env-filter"] }
+axum = "0.7"
+regex = "1"
+governor = "0.6"
+uuid = { version = "1", features = ["v4"] }
+rand = "0.8"
+vkontakte-macros = { path = "vkontakte-macros", version = "0.1.0", optional = true }
+deadpool-redis = { version = "0.23", optional = true }
+redis = { version = "0.32", optional = true }
+sqlx = { version = "0.8", features = ["postgres", "runtime-tokio", "json"], default-features = false, optional = true }
+
+[features]
+default = []
+macros = ["dep:vkontakte-macros"]
+redis = ["dep:deadpool-redis", "dep:redis"]
+postgres = ["dep:sqlx"]
+
+[dev-dependencies]
+tokio-test = "0.4"
+mockito = "1"
+serde_json = "1"
+
+[lib]
+name = "vkontakte"
+path = "src/lib.rs"
+
+[[example]]
+name = "macro_bot"
+required-features = ["macros"]
